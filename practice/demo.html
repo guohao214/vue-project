@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <title>淘宝购物车页面</title>
+    <link href="css/myCart.css" type="text/css" rel="stylesheet"/>
+    <script src="vue2.1.1.10.js"></script>
+    <!--<script type="text/javascript" src="js/myCart.js"></script>-->
+
+</head>
+
+<body>
+<div id="header"><img src="images/taobao_logo.gif" alt="logo"/></div>
+<div id="nav">您的位置：<a href="#">首页</a> > <a href="#">我的淘宝</a> > 我的购物车</div>
+<div id="navlist">
+    <ul>
+        <li class="navlist_red_left"></li>
+        <li class="navlist_red">1. 查看购物车</li>
+        <li class="navlist_red_arrow"></li>
+        <li class="navlist_gray">2. 确认订单信息</li>
+        <li class="navlist_gray_arrow"></li>
+        <li class="navlist_gray">3. 付款到支付宝</li>
+        <li class="navlist_gray_arrow"></li>
+        <li class="navlist_gray">4. 确认收货</li>
+        <li class="navlist_gray_arrow"></li>
+        <li class="navlist_gray">5. 评价</li>
+        <li class="navlist_gray_right"></li>
+    </ul>
+</div>
+
+<div id="content">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="shopping">
+        <form action="" method="post" name="myform">
+            <tr>
+                <td class="title_1">
+                    <input id="allCheckBox" type="checkbox" v-bind:checked="checkedAll" @click="selectAll"/>全选
+                </td>
+                <td class="title_2" colspan="2">店铺宝贝</td>
+                <td class="title_3">获积分</td>
+                <td class="title_4">单价（元）</td>
+                <td class="title_5">数量</td>
+                <td class="title_6">小计（元）</td>
+                <td class="title_7">操作</td>
+            </tr>
+            <tr>
+                <td colspan="8" class="line"></td>
+            </tr>
+
+            <template v-for="product in products">
+                <tr>
+                    <td colspan="8" class="shopInfo">店铺：<a href="#">纤巧百媚时尚鞋坊</a> 卖家：<a href="#">纤巧百媚</a> <img
+                            src="images/taobao_relation.jpg" alt="relation"/></td>
+                </tr>
+                <tr>
+                    <td class="cart_td_1">
+                        <input name="cartCheckBox" type="checkbox" @click="selectProduct(product)"
+                               v-bind:checked="product.checked"/></td>
+                    <td class="cart_td_2"><img v-bind:src="product.image" alt="shopping"/></td>
+                    <td class="cart_td_3"><a href="#"> {{ product.name }}</a><br/>
+                        颜色：{{ product.color }} 尺码：{{ product.size }}<br/>
+                        保障：<img src="images/taobao_icon_01.jpg" alt="icon"/></td>
+                    <td class="cart_td_4">{{ product.integral }}</td>
+                    <td class="cart_td_5">{{ product.price }}</td>
+                    <td class="cart_td_6">
+                        <img src="images/taobao_minus.jpg" alt="minus" @click="changeQuantity(product, -1)"
+                             class="hand"/>
+                        <input id="num_1" type="text" v-bind:value="product.quantity" lass="num_input"
+                               readonly="readonly" style="width: 50px;"/>
+                        <img src="images/taobao_adding.jpg" alt="add" @click="changeQuantity(product, 1)" class="hand"/>
+                    </td>
+                    <td class="cart_td_7">{{ product.quantity * product.price | formatMoney}}</td>
+                    <td class="cart_td_8"><a href="javascript:;" @click="removeProduct(product)">删除</a></td>
+                </tr>
+
+            </template>
+
+            <tr>
+                <td colspan="3"><a href="javascript:;" @click="deleteSelectProduct">
+                    <img src="images/taobao_del.jpg" alt="delete"/></a></td>
+                <td colspan="5" class="shopend">商品总价（不含运费）：<label id="total" class="yellow">{{ totalAmount }}</label>
+                    元<br/>
+                    可获积分 <label class="yellow" id="integral">{{ totalIntegral }}</label> 点<br/>
+                    <input name=" " type="image" src="images/taobao_subtn.jpg"/></td>
+            </tr>
+        </form>
+    </table>
+</div>
+
+<script src="vue.resourse.js"></script>
+<script src="cart.js"></script>
+</body>
+</html>
