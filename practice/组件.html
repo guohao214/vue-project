@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件</title>
+    <script src="vue2.1.1.10.js"></script>
+</head>
+<body>
+
+<div id="container">
+    <div></div>
+    <table>
+        <tr>
+            <td>
+                <tr-component></tr-component>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+
+    var div = {
+        template: '<div>div</div>'
+    }
+
+    var spanComponent = Vue.extend({
+        props: {
+            name: {
+                type: String
+            },
+            age: {
+                type: Number
+            }
+        },
+        methods: {
+            incrementAge: function () {
+                this.$emit('incrementAge')
+            }
+        },
+        template: '<span v-on:click="incrementAge"><slot>子组件： {{ name }} - {{ age }}</slot></span>'
+    })
+
+    var trComponent = Vue.extend({
+        template: "<div>父组件：{{ name }} - {{ age }} <br>" +
+            "<span-component v-bind:name='name' v-bind:age='age' " +
+            "v-on:incrementAge='incrementAge' v-on:click.native='incrementAge'>" +
+            "</span-component></div>",
+        data() {
+            return {
+                name: '孤好',
+                age: 50
+            }
+        },
+        methods: {
+            incrementAge: function () {
+                this.age++;
+            }
+        },
+        components: {
+            spanComponent: spanComponent
+        }
+    })
+
+
+    new Vue({
+        el: '#container',
+        components: {
+            trComponent: trComponent,
+            div: div
+        }
+    })
+
+</script>
+</body>
+</html>

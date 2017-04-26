@@ -1,0 +1,31 @@
+{
+  "productList": [
+    {
+      "image":"images/taobao_cart_01.jpg",
+      "name": "日韩流行风时尚美眉最爱独特米字拼图金属坡跟公主靴子黑色",
+      "color": "棕色",
+      "size": 36,
+      "price": 136,
+      "quantity": 6,
+      "integral": 5
+    },
+    {
+      "image":"images/taobao_cart_02.jpg",
+      "name": "chanel/香奈尔/香奈尔炫亮魅力唇膏3.5g",
+      "color": "",
+      "size": "",
+      "price": 265,
+      "quantity": 15,
+      "integral": 5
+    },
+    {
+      "image":"images/taobao_cart_03.jpg",
+      "name": "蝶妆海??蓝清滢粉底液10#（象牙白）",
+      "color": "",
+      "size": "",
+      "price": 85,
+      "quantity": 20,
+      "integral": 50
+    }
+  ]
+}
