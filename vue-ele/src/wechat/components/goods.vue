@@ -21,18 +21,44 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
-  name: 'sellers',
+  name: 'goods',
   data () {
     return {
-      msg: 'sellers'
+      msg: Date.parse(new Date())
     }
+  },
+  mounted: function () {
+    this.$nextTick(() => this.$request.get('static/data.json'))
+  },
+  beforeRouteEnter(to, from, next) {
+    //console.log(to);
+    //next()
+
+    next();
+  },
+  beforeRouteUpdate(to, from, next) {
+    alert(22)
+  },
+  destroyed: function () {
+    alert('卸载')
+  },
+  deactivated: function () {
+    alert('离开')
+  },
+  activated: function () {
+    alert('激活')
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  div {
+    padding: 0 150px;
+  }
 h1, h2 {
   font-weight: normal;
 }
@@ -49,5 +75,6 @@ li {
 
 a {
   color: #42b983;
+  font-size: 25px;
 }
 </style>

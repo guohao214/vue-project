@@ -8,6 +8,14 @@ import sellers from '@/components/sellers'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
+  // scrollBehavior (to, from, savedPosition) {
+  //   if (savedPosition) {
+  //     return savedPosition
+  //   } else {
+  //     return { x: 0, y: 0 }
+  //   }
+  // },
   routes: [
     {
       path: '/',
@@ -16,15 +24,15 @@ export default new Router({
       children: [
         {
           path: '/goods',
-          component: goods
+          component: resolve => require(['../components/goods.vue'], resolve)
         },
         {
           path: '/ratings',
-          component: ratings
+          component: resolve => require(['../components/ratings.vue'], resolve)
         },
         {
           path: '/sellers',
-          component: sellers
+          component: resolve => require(['../components/sellers.vue'], resolve)
         }
       ]
     }

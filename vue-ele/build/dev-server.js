@@ -1,5 +1,8 @@
 require('./check-versions')()
 
+// 编译目录
+var buildDir = process.argv.splice(2);
+
 var config = require('../config')
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
@@ -10,7 +13,7 @@ var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig = require('./webpack.dev.conf')
+var webpackConfig = require('./webpack.dev.conf')(buildDir)
 
 // var router = require('./mock')
 
@@ -32,7 +35,7 @@ router.get('/seller', function (req, res) {
   })
 })
 
-app.use('/api', router)
+//app.use('/api', router)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
@@ -58,6 +61,8 @@ Object.keys(proxyTable).forEach(function (context) {
   }
   app.use(proxyMiddleware(options.filter || context, options))
 })
+
+//app.use('/api', proxyMiddleware({target: 'http://www.baidu.com', changeOrigin: true}))
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())

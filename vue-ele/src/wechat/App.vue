@@ -3,7 +3,9 @@
     <v-header :seller="seller"></v-header>
     <v-tabs></v-tabs>
 
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 
 </template>
@@ -45,8 +47,6 @@ export default {
     'v-tabs': tabs
   }
 }
-
-
 
 </script>
 

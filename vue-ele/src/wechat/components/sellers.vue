@@ -21,12 +21,17 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+
 export default {
-  name: 'goods',
+  name: 'sellers',
   data () {
     return {
-      msg: Date.parse(new Date())
+      msg: 'sellers'
     }
+  },
+  mounted: function () {
+    Vue.nextTick(() => this.$request.get('/api/seller'))
   }
 }
 </script>
