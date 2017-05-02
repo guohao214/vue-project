@@ -1,0 +1,7 @@
+
+ // µ÷ÊÔ
+ npm run dev wechat
+
+
+ // Éú³É
+ npm run build wechat ../../wechat

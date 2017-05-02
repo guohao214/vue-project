@@ -18,8 +18,7 @@ module.exports = function (buildDir, outputDir) {
   if (!outputDir)
     outputDir = config.build.assetsRoot + '/' + buildDir;
   else
-    outputDir = path.resolve(buildDir);
-
+    outputDir = path.resolve(__dirname, outputDir);
 
   var webpackConfig = merge(baseWebpackConfig, {
     module: {
