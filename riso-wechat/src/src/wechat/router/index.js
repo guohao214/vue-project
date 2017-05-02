@@ -5,7 +5,7 @@ import My from '@/components/my'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  //mode: 'history',
   // scrollBehavior (to, from, savedPosition) {
   //   if (savedPosition) {
   //     return savedPosition
