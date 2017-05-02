@@ -9,11 +9,17 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var env = config.build.env
 
-module.exports = function (buildDir) {
+module.exports = function (buildDir, outputDir) {
   var baseWebpackConfig = require('./webpack.base.conf')(buildDir);
 
   var entryIndexHtml = baseWebpackConfig.entryIndexHtml;
   delete baseWebpackConfig.entryIndexHtml;
+
+  if (!outputDir)
+    outputDir = config.build.assetsRoot + '/' + buildDir;
+  else
+    outputDir = path.resolve(buildDir);
+
 
   var webpackConfig = merge(baseWebpackConfig, {
     module: {
@@ -24,7 +30,7 @@ module.exports = function (buildDir) {
     },
     devtool: config.build.productionSourceMap ? '#source-map' : false,
     output: {
-      path: config.build.assetsRoot + '/' + buildDir,
+      path: outputDir,
       filename: utils.assetsPath('js/[name].[chunkhash].js'),
       chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
     },

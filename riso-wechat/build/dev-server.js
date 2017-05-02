@@ -15,6 +15,8 @@ var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')(buildDir)
 
+var routerConfig = require('../config/router')
+
 // var router = require('./mock')
 
 // default port where dev server listens for incoming traffic
@@ -29,13 +31,10 @@ var app = express()
 var compiler = webpack(webpackConfig)
 
 var router = express.Router();
-router.get('/seller', function (req, res) {
-  res.json({
-    status: 0
-  })
-})
-
-//app.use('/api', router)
+for (var _r in routerConfig) {
+  router.get(_r, routerConfig[_r])
+}
+app.use('/api', router)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
@@ -43,12 +42,13 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
 })
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
-  log: () => {}
+  log: () => {
+  }
 })
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
+    hotMiddleware.publish({action: 'reload'})
     cb()
   })
 })
@@ -57,7 +57,7 @@ compiler.plugin('compilation', function (compilation) {
 Object.keys(proxyTable).forEach(function (context) {
   var options = proxyTable[context]
   if (typeof options === 'string') {
-    options = { target: options }
+    options = {target: options}
   }
   app.use(proxyMiddleware(options.filter || context, options))
 })

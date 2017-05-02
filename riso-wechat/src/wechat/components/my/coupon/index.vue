@@ -1,65 +1,84 @@
 <template>
-  <div class="coupon-list">
-    <div class="coupon">
-      <div class="coupon-left"></div>
-      <div class="coupon-content">
-        <span class="amount-info">
-          <div class="amount"><i>¥</i><label for="" class="money">200</label></div>
-          <div class="info">快到期</div>
-        </span>
-        <span class="coupon-info">
-          <div class="coupon-title">RISO FRESH 抵用券</div>
-          <div class="coupon-description">生鲜满200减60抵用券</div>
-          <div class="coupon-period">有效期：2016.09-21~2017.12~03</div>
-        </span>
+    <div class="cl-list" v-if="clIsEmpty">
+      <div class="cl">
+        <div class="cl-left"></div>
+        <div class="cl-content">
+          <span class="amount-info">
+            <div class="amount"><i>¥</i><label for="" class="money">200</label></div>
+            <div class="info">快到期</div>
+          </span>
+          <span class="cl-info">
+            <div class="cl-title">RISO FRESH 抵用券</div>
+            <div class="cl-description">生鲜满200减60抵用券</div>
+            <div class="cl-period">有效期：2016.09-21~2017.12~03</div>
+          </span>
+        </div>
+        <div class="cl-right"></div>
       </div>
-      <div class="coupon-right"></div>
-    </div>
-    <div class="coupon">
-      <div class="coupon-left"></div>
-      <div class="coupon-content">
-        <span class="amount-info">
-          <div class="amount"><i>¥</i><label for="" class="money">200</label></div>
-        </span>
-        <span class="coupon-info">
-          <div class="coupon-title">RISO FRESH 抵用券</div>
-          <div class="coupon-description">生鲜满200减60抵用券</div>
-          <div class="coupon-period">有效期：2016.09-21~2017.12~03</div>
-        </span>
+      <div class="cl">
+        <div class="cl-left"></div>
+        <div class="cl-content">
+          <span class="amount-info">
+            <div class="amount"><i>¥</i><label for="" class="money">200</label></div>
+          </span>
+          <span class="cl-info">
+            <div class="cl-title">RISO FRESH 抵用券</div>
+            <div class="cl-description">生鲜满200减60抵用券</div>
+            <div class="cl-period">有效期：2016.09-21~2017.12~03</div>
+          </span>
+        </div>
+        <div class="cl-right"></div>
       </div>
-      <div class="coupon-right"></div>
-    </div>
 
-    <div class="coupon-divide">
-      <i>5</i>
-      <label>已失效的券</label>
-    </div>
-    <div class="coupon invalid">
-      <div class="coupon-left"></div>
-      <div class="coupon-content">
-        <span class="amount-info">
-          <div class="amount"><i>¥</i><label class="money">200</label></div>
-          <div class="info">已过期</div>
-        </span>
-        <span class="coupon-info">
-          <div class="coupon-title">RISO FRESH 抵用券</div>
-          <div class="coupon-description">生鲜满200减60抵用券</div>
-          <div class="coupon-period">有效期：2016.09-21~2017.12~03</div>
-        </span>
+      <div class="cl-divide">
+        <i>5</i>
+        <label>已失效的券</label>
       </div>
-      <div class="coupon-right"></div>
-    </div>
+      <div class="cl invalid">
+        <div class="cl-left"></div>
+        <div class="cl-content">
+          <span class="amount-info">
+            <div class="amount"><i>¥</i><label class="money">200</label></div>
+            <div class="info">已过期</div>
+          </span>
+          <span class="cl-info">
+            <div class="cl-title">RISO FRESH 抵用券</div>
+            <div class="cl-description">生鲜满200减60抵用券</div>
+            <div class="cl-period">有效期：2016.09-21~2017.12~03</div>
+          </span>
+        </div>
+        <div class="cl-right"></div>
+      </div>
 
-    <div class="coupon-divide"><label>RISO</label></div>
+      <div class="cl-divide"><label>RISO</label></div>
+  </div>
+  <div class="cl-empty" v-else>
+    <div class="bg"></div>
   </div>
 </template>
 
 <script>
+  import clickoutside from '../../clickoutside';
+  import Vue from 'vue'
+
+  Vue.use(clickoutside)
+
   export default {
     name: 'coupon',
     data () {
       return {
-        msg: '22'
+        msg: '22',
+        clList:[{}]
+      }
+    },
+    methods: {
+      toast: function () {
+          alert(1)
+      }
+    },
+    computed: {
+      clIsEmpty() {
+        return this.clList.length > 0 ? true : false
       }
     },
     created: function () {
@@ -77,21 +96,30 @@
 <style lang="stylus" scoped>
   @import "../../../assets/stylus/mixin.styl"
 
-  .coupon-list
+  .cl-empty
+    display flex
+    justify-content center
+    margin-top px2rem(200)
+    .bg
+      width px2rem(400)
+      height px2rem(267)
+      bg-image('empty')
+
+  .cl-list
     padding: px2rem(18);
     background-color #F8F8F8;
-    .coupon
+    .cl
       height: px2rem(224)
       margin: px2rem(15) 0;
       display: flex
       justify-content center
       align-items center
 
-      .coupon-left
+      .cl-left
         height: inherit;
         width: px2rem(64)
         bg-image('left-valid');
-      .coupon-content
+      .cl-content
         height px2rem(208);
         border-1px(rgba(7, 17, 27, 0.1))
         &:after
@@ -127,32 +155,32 @@
             display inline-block
             vertical-align middle
 
-        .coupon-info
-          .coupon-title
+        .cl-info
+          .cl-title
             font-size px2rem(34)
             line-height px2rem(34)
             font-weight bold
             color #425566
-          .coupon-description, .coupon-period
+          .cl-description, .cl-period
             font-size px2rem(24)
             line-height px2rem(34)
             color: #888888;
 
-      .coupon-right
+      .cl-right
         height inherit;
         width: px2rem(32)
         bg-image('right-valid');
       &.invalid
-        .coupon-left
+        .cl-left
           bg-image('left-invalid');
-        .coupon-content
+        .cl-content
           background-color #FAFAFA
-          .coupon-info
-            .coupon-title
+          .cl-info
+            .cl-title
               color #97A3B4
-            .coupon-description
+            .cl-description
               color #97A3B4
-            .coupon-period
+            .cl-period
               color #97A3B4
           span
           .amount-info
@@ -165,14 +193,14 @@
               background-color #CBD1D9
               vertical-align text-top
 
-        .coupon-right
+        .cl-right
           bg-image('right-invalid');
 
 </style>
 
 <style lang="stylus" scoped="">
   @import "../../../assets/stylus/mixin.styl"
-  .coupon-divide
+  .cl-divide
     color #BBBBBB
     font-size px2rem(24)
     display flex

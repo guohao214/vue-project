@@ -1,7 +1,8 @@
 require('./check-versions')()
 
 // 编译目录
-var buildDir = process.argv.splice(2);
+var buildDir = process.argv.slice(2,3)[0];
+var outputDir = process.argv.splice(3, 4)[0];
 
 process.env.NODE_ENV = 'production'
 
@@ -12,7 +13,7 @@ var chalk = require('chalk')
 var webpack = require('webpack')
 var config = require('../config')
 
-var webpackConfig = require('./webpack.prod.conf')(buildDir)
+var webpackConfig = require('./webpack.prod.conf')(buildDir, outputDir)
 
 var spinner = ora('building for production...')
 spinner.start()

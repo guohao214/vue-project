@@ -28,10 +28,14 @@ html, body
   padding:0
   margin:0
 
-body
+html
+  height 100%
 
+body
+  height 100%
   #app
     font-family: Helvetica, Tahoma, Arial, STXihei, SimSun, Heiti, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    height 100%
 </style>
