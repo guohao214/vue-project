@@ -82,7 +82,9 @@
       }
     },
     created: function () {
-      document.title = 'RISO - 优惠券'
+      document.title = 'RISO - 优惠券';
+
+      this.$request.get('coupon/getMemberCouponList.json')
     }
   }
 </script>

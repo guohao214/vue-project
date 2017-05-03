@@ -19,5 +19,5 @@ new Vue({
   router,
   request,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })

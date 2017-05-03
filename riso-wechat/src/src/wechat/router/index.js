@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import My from '@/components/my'
+import Test from '@/components/test/test'
 
 Vue.use(Router)
 
@@ -21,6 +22,16 @@ export default new Router({
         {
           path: 'coupon',
           component: resolve => require(['../components/my/coupon/index.vue'], resolve)
+        }
+      ]
+    },
+    {
+      path: '/test/',
+      component: Test,
+      children: [
+        {
+          path: 'slot',
+          component: resolve => require(['../components/test/slot.vue'], resolve)
         }
       ]
     },

@@ -30,11 +30,11 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 var compiler = webpack(webpackConfig)
 
-var router = express.Router();
-for (var _r in routerConfig) {
-  router.get(_r, routerConfig[_r])
-}
-app.use('/api', router)
+/*var router = express.Router();
+ for (var _r in routerConfig) {
+ router.get(_r, routerConfig[_r])
+ }
+ app.use('/api', router)*/
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
@@ -62,7 +62,10 @@ Object.keys(proxyTable).forEach(function (context) {
   app.use(proxyMiddleware(options.filter || context, options))
 })
 
-//app.use('/api', proxyMiddleware({target: 'http://www.baidu.com', changeOrigin: true}))
+app.use('**.json',
+  proxyMiddleware({
+    target: 'http://192.168.29.26:8080/mockjsdata/420/', changeOrigin: true
+  }))
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
