@@ -24,6 +24,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import "assets/stylus/mixin.styl"
+
 html, body
   padding:0
   margin:0
@@ -38,4 +40,12 @@ body
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height 100%
+
+.mint-toast-text
+  font-size: px2rem(24) !important
+  padding: px2rem(10) px2rem(15) !important
+  max-width px2rem(755*0.8) !important
+  display flex !important
+  justify-content center
+  align-items center
 </style>

@@ -2,41 +2,50 @@
  * 请求
  */
 import axios from "axios";
-import { Toast } from 'mint-ui';
+import Qs from 'qs'
+import {Toast} from 'mint-ui';
 
 export default {
-    install: function (Vue, options) {
-        if (this.installed)
-            return;
+  install: function (Vue, options) {
+    if (this.installed)
+      return;
 
-        this.request = axios.create(options);
-        this._init();
+    if (!options)
+      options = {};
 
-        Vue.prototype.$request = this;
-    },
-    _init: function () {
-        this.request.interceptors.response.use(
-            response => {
-                console.log(response)
-                // 判断
-            },
-            error=> {
-                console.log(error.response)
-              Toast({
-                message: '请求失败',
-                position: 'bottom',
-                duration: 5000
-              });
+    // 数据
+    options.transformRequest = [function (data) {
+      data = Qs.stringify(data);
+      return data;
+    }],
 
-                return Promise.reject(error.response.data)
-            }
+    this.request = axios.create(options);
+    this._init();
 
-        );
-    },
-    get: function (url, data) {
-        return this.request.get(url, data)
-    },
-    post: function (url, data) {
-        return this.request.get(url, data)
-    }
+    Vue.prototype.$request = this;
+  },
+  _init: function () {
+    this.request.interceptors.response.use(
+      response => {
+        return response
+        // 判断
+      },
+      error => {
+        console.log(error.response)
+        Toast({
+          message: '请求失败',
+          position: 'bottom',
+          duration: 5000
+        });
+
+        return Promise.reject(error.response.data)
+      }
+    );
+  },
+  get: function (url, data) {
+    return this.request.get(url, data)
+  },
+  post: function (url, data) {
+    return this.request.post(url, data)
+  }
 }

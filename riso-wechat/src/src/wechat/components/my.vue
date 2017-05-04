@@ -1,11 +1,9 @@
 <template>
-  <transition name="fade">
     <div class="container">
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
     </div>
-  </transition>
 </template>
 
 <script>
@@ -17,12 +15,12 @@
 <style lang="stylus">
   .container
     height 100%
+    position relative
 
-  .fade-enter-active, .fade-leave-active
-    transition: opacity .5s
-    opacity 1
+  /*.fade-enter-active,.fade-leave-active*/
+    /*transition: opacity 0.5s*/
 
-  .fade-enter, .fade-leave
-    opacity: 0
+  /*.fade-enter, .fade-leave*/
+    /*opacity: 0*/
 
 </style>

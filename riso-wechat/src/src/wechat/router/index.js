@@ -1,37 +1,34 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import My from '@/components/my'
-import Test from '@/components/test/test'
+import { Indicator } from 'mint-ui';
+import MyLayout from '@/components/my'
+import AccountLayout from '@/pages/account/layout'
 
 Vue.use(Router)
 
-export default new Router({
-  //mode: 'history',
-  // scrollBehavior (to, from, savedPosition) {
-  //   if (savedPosition) {
-  //     return savedPosition
-  //   } else {
-  //     return { x: 0, y: 0 }
-  //   }
-  // },
+let $router = new Router({
   routes: [
     {
       path: '/my/',
-      component: My,
+      component: MyLayout,
       children: [
         {
-          path: 'coupon',
+          path: 'coupon/list',
           component: resolve => require(['../components/my/coupon/index.vue'], resolve)
+        },
+        {
+          path: 'coupon/qrCode',
+          component: resolve => require(['../components/my/coupon/qrCode.vue'], resolve)
         }
       ]
     },
     {
-      path: '/test/',
-      component: Test,
+      path: '/account/',
+      component: AccountLayout,
       children: [
         {
-          path: 'slot',
-          component: resolve => require(['../components/test/slot.vue'], resolve)
+          path: 'register',
+          component: resolve => require(['../pages/account/register.vue'], resolve)
         }
       ]
     },
@@ -56,5 +53,16 @@ export default new Router({
     // }
 
   ],
-  linkActiveClass: 'active'
+  //linkActiveClass: 'active'
 })
+
+
+$router.beforeEach((to, from, next) => {
+  next();
+})
+
+
+$router.afterEach(route => {
+})
+
+export default $router;

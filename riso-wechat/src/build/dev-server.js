@@ -64,7 +64,7 @@ Object.keys(proxyTable).forEach(function (context) {
 
 app.use('**.json',
   proxyMiddleware({
-    target: 'http://192.168.29.26:8080/mockjsdata/420/', changeOrigin: true
+    target: 'https://pre.risofresh.com/', changeOrigin: true
   }))
 
 // handle fallback for HTML5 history API

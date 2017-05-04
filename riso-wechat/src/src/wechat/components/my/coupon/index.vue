@@ -1,10 +1,11 @@
 <template>
-    <div class="cl-list" v-if="clIsEmpty">
+  <div class="cl-list" v-if="clIsEmpty">
+    <router-link to="/my/coupon/qrCode">
       <div class="cl">
         <div class="cl-left"></div>
         <div class="cl-content">
           <span class="amount-info">
-            <div class="amount"><i>¥</i><label for="" class="money">200</label></div>
+            <div class="amount"><i>¥</i><label class="money">200</label></div>
             <div class="info">快到期</div>
           </span>
           <span class="cl-info">
@@ -15,6 +16,7 @@
         </div>
         <div class="cl-right"></div>
       </div>
+    </router-link>
       <div class="cl">
         <div class="cl-left"></div>
         <div class="cl-content">
@@ -55,26 +57,22 @@
   <div class="cl-empty" v-else>
     <div class="bg"></div>
   </div>
+
 </template>
 
 <script>
-  import clickoutside from '../../clickoutside';
   import Vue from 'vue'
-
-  Vue.use(clickoutside)
 
   export default {
     name: 'coupon',
     data () {
       return {
         msg: '22',
-        clList:[{}]
+        clList:[{}],
+        popupVisible: false
       }
     },
     methods: {
-      toast: function () {
-          alert(1)
-      }
     },
     computed: {
       clIsEmpty() {
@@ -84,7 +82,14 @@
     created: function () {
       document.title = 'RISO - 优惠券';
 
-      this.$request.get('coupon/getMemberCouponList.json')
+      var requestParams = {
+        memberToken: 'ef06d191f734bf29f3985d5a63e33520c183d819030076356a443d67b52c24ca',
+        memberId:'100000002775003'
+      }
+
+      this.$request.post('coupon/getMemberCouponList.json', requestParams).then(function (data) {
+        console.log(data)
+      })
     }
   }
 </script>
@@ -93,6 +98,8 @@
 <style lang="stylus">
   body
     background-color #F8F8F8;
+    a
+      text-decoration none
 </style>
 
 <style lang="stylus" scoped>
