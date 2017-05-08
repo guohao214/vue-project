@@ -4,8 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import request from './plugins/request'
-import store from './store'
-import focusDirective from './directive/focus'
 
 import 'mint-ui/lib/style.css';
 import './assets/hotcss/hotcss.js'
@@ -17,7 +15,6 @@ Vue.use(request)
 new Vue({
   el: '#app',
   router,
-  store,
   request,
   template: '<App/>',
   components: {App}

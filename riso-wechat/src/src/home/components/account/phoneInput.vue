@@ -1,14 +1,14 @@
 <template>
   <div>
-      <label>电话号码</label>
+    <label>电话号码</label>
 
     <div class="ip-wrapper">
       <span class="phone-prefix">+86</span>
       <span class="input">
-      <input type="tel" maxlength="11" @keyup="inputTel" ref="inputTel" v-bind:value="phone">
+      <input type="tel" maxlength="11" @keyup="changePhone" ref="phone" v-bind:value="phone" v-focus>
     </span>
 
-      <span class="clear-input" @click="clearInput" v-if="showClearInput"></span>
+      <span class="clear-input" @click="clearPhone" v-if="showClearBtn"></span>
     </div>
   </div>
 </template>
@@ -57,8 +57,8 @@
           width px2rem(25)
           position absolute
           background-color white
-          left: px2rem(9)
-          top: px2rem(18)
+          left: px2rem(10)
+          top: px2rem(19)
           transform: rotate(135deg)
         &:before
           content ''
@@ -66,35 +66,36 @@
           width px2rem(25)
           position absolute
           background-color white
-          left: px2rem(9)
-          top: px2rem(18)
+          left: px2rem(10)
+          top: px2rem(19)
           transform: rotate(45deg);
 </style>
 
 <script>
+  import {mapMutations, mapGetters, mapState} from 'vuex'
+
   export default {
-    name: 'inputPhone',
-    props:['phone'],
+    name: 'phoneInput',
     data() {
-        return {
-          showClearInput: false
-        }
+      return {}
     },
-    watch: {
-      phone: function (val) {
-        if (val != '')
-            this.showClearInput = true
-      }
+    created: function () {
+
     },
+    props:['phone'],
+    computed: mapState({
+      showClearBtn: state => state.account.phone.length > 0
+    }),
     methods: {
-      clearInput: function () {
-        this.showClearInput = false
-        this.$refs.inputTel.value = ''
-        this.$emit('changePhone', '')
+      clearPhone: function () {
+        this.$refs.phone.value = ''
+        this.$refs.phone.focus()
+        this.setPhone('')
       },
-      inputTel: function (e) {
-        this.$emit('changePhone', e.target.value)
-      }
+      changePhone: function (e) {
+        this.setPhone(e.target.value)
+      },
+      ...mapMutations(['setPhone'])
     }
   }
 </script>
