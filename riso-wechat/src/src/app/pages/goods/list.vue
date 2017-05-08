@@ -1,21 +1,34 @@
 <template>
   <div class="goods">
       <goods-item v-for="item in goodsItems" :goods="item"></goods-item>
+    <button  v-for="item in funs" @click="" @click="callBridge(item)">{{ item }}</button>
   </div>
 </template>
 
-<style></style>
+<style lang="stylus">
+  @import "../../assets/stylus/mixin.styl";
+
+  button
+    padding:px2rem(10) px2rem(15)
+    margin:px2rem(10)
+</style>
 
 <script>
   import Vue from 'vue'
   import Item from '@/components/goods/item'
+  import { RISOBridge, RISOBridgeInit } from '../../assets/bridge/RISOBridge'
 
   Vue.component(Item.name, Item)
+
+  RISOBridgeInit(function () {
+    alert(1111)
+  })
 
   export default {
     name: 'goodsList',
     data() {
       return {
+          funs: [],
           goodsItems: [
             {
                 id: 120,
@@ -49,6 +62,30 @@
     },
     created: function () {
 
+
+      for(var i in RISOBridge)
+        if (RISOBridge.hasOwnProperty(i))
+          this.funs.push(i)
+    },
+    methods: {
+      callBridge(funName) {
+        var params = {
+          now: (new Date()).getTime(),
+          title: 'RISO测试'
+        }
+
+        RISOBridge[funName].call(null, params, {
+          success: function (data) {
+            alert('success:' + data);
+          },
+          fail: function (data) {
+            alert('fail:' + data);
+          },
+          progress: function (data) {
+            alert('progress:' + data);
+          }
+        })
+      }
     }
   }
 </script>

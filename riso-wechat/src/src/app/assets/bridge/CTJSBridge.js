@@ -1,5 +1,6 @@
 /* eslint-disable */
 window.CTCallBackList = {};
+var wsConnection;
 String.prototype.hashCode = function() {
   var hash = 0;
   if (this.length == 0) return hash;
@@ -73,11 +74,11 @@ function LoadMethod(targetName, actionName, data, callback) {
 
 window.Callback = function(identifier, resultStatus, resultData) {
 
-  callBackDict = window.CTCallBackList[identifier];
+  var callBackDict = window.CTCallBackList[identifier];
 
   if (callBackDict) {
 
-    isFinished = true;
+    var isFinished = true;
     if (resultStatus == "success") {
       callBackDict.success(resultData);
     }
@@ -85,7 +86,7 @@ window.Callback = function(identifier, resultStatus, resultData) {
       callBackDict.fail(resultData);
     }
     if (resultStatus == "progress") {
-      isFinished = false;
+     var isFinished = false;
       callBackDict.progress(resultData);
     }
 
@@ -97,8 +98,8 @@ window.Callback = function(identifier, resultStatus, resultData) {
 }
 
 window.CTJSBridge = {
-  LoadMethod: window.LoadMethod,
-  LoadAPI: window.LoadAPI,
+  LoadMethod: LoadMethod,
+  LoadAPI: LoadAPI,
   _setNativeTitle: window._setNativeTitle || function() {},
   loadNativeJS: window.loadNativeJS || function() {},
   fetchUserInfo: window.fetchUserInfo || function() {

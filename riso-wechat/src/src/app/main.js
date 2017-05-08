@@ -8,6 +8,11 @@ import request from './plugins/request'
 import 'mint-ui/lib/style.css';
 import './assets/hotcss/hotcss.js'
 
+for(var i in window.CTJSBridge)
+{
+  console.log(i, window.CTJSBridge[i])
+}
+
 Vue.config.productionTip = false
 Vue.use(request)
 
