@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <h3>请输入您的手机号</h3>
-    <phone-input :phone="phone"></phone-input>
-    <next-step-btn @nextBtnClick="nextStep" :isActive="isValidPhone"></next-step-btn>
+  <div class="register-step1">
+    <v-header><span slot="title-slot">输入手机号</span></v-header>
+    <div>
+      <h3>请输入您的手机号</h3>
+      <phone-input :phone="phone"></phone-input>
+      <next-step-btn @nextBtnClick="nextStep" :isActive="isValidPhone"></next-step-btn>
+    </div>
   </div>
 </template>
 
@@ -15,11 +18,13 @@
 
 <script>
   import Vue from 'vue'
+  import Header from '@/components/header/header'
   import PhoneInput from '@/components/account/phoneInput'
   import NextStepBtn from "../../components/account/nextStepBtn";
 
   Vue.component(PhoneInput.name, PhoneInput);
   Vue.component(NextStepBtn.name, NextStepBtn);
+  Vue.component(Header.name, Header);
 
   import {mapState} from 'vuex'
 

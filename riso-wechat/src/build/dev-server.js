@@ -1,7 +1,8 @@
 require('./check-versions')()
 
 // 编译目录
-var buildDir = process.argv.splice(2);
+var buildDir = process.argv.slice(2,3)[0];
+var listenPort = process.argv.splice(3, 4)[0];
 
 var config = require('../config')
 if (!process.env.NODE_ENV) {
@@ -15,12 +16,14 @@ var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')(buildDir)
 
-var routerConfig = require('../config/router')
-
 // var router = require('./mock')
 
 // default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
+if (!listenPort)
+  var port = process.env.PORT || config.dev.port
+else
+  var port = listenPort
+
 // automatically open browser, if not set will be false
 var autoOpenBrowser = !!config.dev.autoOpenBrowser
 // Define HTTP proxies to your custom API backend

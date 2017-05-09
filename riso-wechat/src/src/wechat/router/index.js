@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import { Indicator } from 'mint-ui';
-import MyLayout from '@/components/my'
+import MyLayout from '@/pages/my/layout'
 import AccountLayout from '@/pages/account/layout'
 
 Vue.use(Router)
@@ -14,11 +14,15 @@ let $router = new Router({
       children: [
         {
           path: 'coupon/list',
-          component: resolve => require(['../components/my/coupon/index.vue'], resolve)
+          component: resolve => require(['../pages/my/coupon/index.vue'], resolve)
         },
         {
           path: 'coupon/qrCode',
-          component: resolve => require(['../components/my/coupon/qrCode.vue'], resolve)
+          component: resolve => require(['../pages/my/coupon/qrCode.vue'], resolve)
+        },
+        {
+          path: 'address',
+          component: resolve => require(['../pages/my/address/index.vue'], resolve)
         }
       ]
     },

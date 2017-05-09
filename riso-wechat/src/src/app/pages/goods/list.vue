@@ -9,8 +9,9 @@
   @import "../../assets/stylus/mixin.styl";
 
   button
-    padding:px2rem(10) px2rem(15)
-    margin:px2rem(10)
+    padding:px2rem(20) px2rem(30)
+    margin:px2rem(20)
+    font-size px2rem(25)
 </style>
 
 <script>
@@ -61,8 +62,6 @@
       }
     },
     created: function () {
-
-
       for(var i in RISOBridge)
         if (RISOBridge.hasOwnProperty(i))
           this.funs.push(i)
@@ -71,20 +70,38 @@
       callBridge(funName) {
         var params = {
           now: (new Date()).getTime(),
-          title: 'RISO测试'
+          title: 'RISO测试',
+          keywords: '红烧肉',
+          showStatus: 1,
+          productType:'BL0302',
+          productId: '04e457212be24c93b01cbd9753350a5b',
+          spuId: '04e457212be24c93b01cbd9753350a5b',
+          quantity: 1
         }
 
         RISOBridge[funName].call(null, params, {
           success: function (data) {
+            console.log('success:' + data)
             alert('success:' + data);
           },
           fail: function (data) {
+            console.log('fail:' + data)
             alert('fail:' + data);
           },
           progress: function (data) {
             alert('progress:' + data);
           }
         })
+
+
+//
+//        setTimeout(function () {
+//          RISOBridge['setLoadingStatus'].call(null, {showStatus: 0}, {success:function () {
+//
+//          }, fail: function () {
+//
+//          }})
+//        }, 5000)
       }
     }
   }

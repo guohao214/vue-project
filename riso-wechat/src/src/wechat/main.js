@@ -5,8 +5,9 @@ import App from './App'
 import router from './router'
 import request from './plugins/request'
 import store from './store'
-import focusDirective from './directive/focus'
+import './directive/focus'
 
+import '../../util/reset.css'
 import 'mint-ui/lib/style.css';
 import './assets/hotcss/hotcss.js'
 
